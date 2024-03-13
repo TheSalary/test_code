@@ -1,0 +1,45 @@
+//#include <bits/stdc++.h>
+#include "iostream"
+#include "string"
+using namespace std;
+
+
+
+int main() {
+    string S;
+    int n;
+    cin>>n;
+    for (int i = 0; i < n; ++i) {
+        char x;
+        cin>>x;
+        S += x;
+    }
+    string s,s_;
+    s=S;
+    s_=string(S.rbegin(),S.rend());
+    string ans;
+    for (int i = 0; i < n; ++i) {
+        if(s>s_) {
+            ans += s_[0];
+            s_.erase(s_.begin());
+            s.erase(s.begin() + n - 1 - i);
+        }
+        else {
+            ans += s[0];
+            s_.erase(s_.begin() + n - 1 - i);
+            s.erase(s.begin());
+        }
+
+    }
+
+    int m = ans.length()/80;
+    if(m*80!=ans.length()) m++;
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < 80; ++j) {
+            if(i*80+j>=ans.length()) break;
+            cout<<ans[i*80+j];
+        }
+        cout<<endl;
+    }
+    return 0;
+}
