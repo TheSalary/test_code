@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int lastStoneWeightII(vector<int>& nums) {
+        int sum = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            sum+=nums[i];
+        }
+            int bag = sum/2;
+            int dp[3005]={0};
+
+            for (int i = nums[0]; i <= bag; ++i) {
+                dp[i] = nums[0];
+            }
+
+            for (int i = 1; i < nums.size(); ++i) {
+                for (int j = bag; j >= nums[i]; --j) {
+                    dp[j] = max(dp[j],dp[j - nums[i]] + nums[i]);
+                }
+            }
+//实际上与leetcode 416分割最小子集一样，思路是把这堆石头尽可能均匀分布成两堆，这样两堆相减一定是最小值，由此可以引申出一个概念，即01背包的dp数组实际上能够将一堆数均匀分成两半，但具体有那些数还未实验过能否得到，待考虑
+            return sum-dp[bag]*2;
+    }
+};
