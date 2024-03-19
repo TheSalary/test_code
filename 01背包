@@ -4,6 +4,7 @@
 using namespace std;
 int weight[5005]={0},value[5005]={0};
 int dp[5005][5005]={0};
+//dp二维数组
 int main() {
     int n,bagsize;
     cin>>n>>bagsize;
@@ -29,5 +30,29 @@ int main() {
         cout<<endl;
     }
     cout<<dp[n-1][bagsize];
+    return 0;
+}
+//dp一维数组
+int weight[5005]={0},value[5005]={0};
+int dp[5005]={0};
+int main() {
+    int n,bagsize;
+    cin>>n>>bagsize;
+    for (int i = 0; i < n; ++i) {
+        cin>>weight[i];
+    }for (int i = 0; i < n; ++i) {
+        cin>>value[i];
+    }
+    for (int i = weight[0]; i <= bagsize; ++i) {//注意，这里初始化了第一行也就是第0个物品，那么下边必须要从物品1开始，不然会覆盖，要不就都初始化成0，然后下边可以从物品0开始        dp[i]=value[0];
+    }
+
+    for (int i = 1; i < n; ++i) {
+        for (int j = bagsize; j >= 0; --j) {
+            if(j<weight[i]) ;
+            else dp[j] = max(dp[j],dp[j-weight[i]]+value[i]);
+        }
+    }
+
+    cout<<dp[bagsize];
     return 0;
 }
