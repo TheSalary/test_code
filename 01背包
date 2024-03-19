@@ -18,7 +18,7 @@ int main() {
 
     for (int i = 1; i < n; ++i) {//物品从1开始，初始化时已经将0物品写过了，？但为什么不能从0开始呢？
         for (int j = 0; j <= bagsize; ++j) {
-            if(j<weight[i])dp[i][j]=dp[i-1][j];
+            if(j<weight[i])dp[i][j]=dp[i-1][j];//这里要i-1所以不能从0开始，不然会溢出
             else dp[i][j]=max(dp[i-1][j],dp[i-1][j-weight[i]]+value[i]);
         }
     }
