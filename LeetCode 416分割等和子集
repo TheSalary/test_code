@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int sum = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            sum+=nums[i];
+        }
+        if(sum%2!=0) return false;
+        else{
+            int bag = sum/2;//这道题相当于要把数组里的数相加除二，如果为小数说明不可能，为整数的话转化为背包问题，即每个物品的重量和价值相等时，能否找到价值和背包大小相等的时候
+            int dp[10005]={0};
+
+            for (int i = nums[0]; i <= bag; ++i) {
+                dp[i] = nums[0];
+            }
+
+            for (int i = 1; i < nums.size(); ++i) {
+                for (int j = bag; j >= nums[i]; --j) {
+                    dp[j] = max(dp[j],dp[j - nums[i]] + nums[i]);
+                }
+            }
+            if(dp[bag]!=bag) return false;
+            else return true;
+        }
+
+            }
+    };
