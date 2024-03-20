@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        int dp[105][105]={0};
+            
+        for(string str:strs){//这里是遍历物品，下边的双重循环是二维重量
+            int zero = 0,one = 0;
+            for(char c:str)
+            if(c=='0') zero++;
+            else one++;
+
+            for(int i = m;i >= zero;--i){//每一个字符串相当于一个物品有两个重量，故为二维
+                for(int j = n;j >= one;--j){
+                    dp[i][j]=max(dp[i][j],dp[i-zero][j-one]+1);//递推公式实际上都是关注当前物品的性质，由上一层东西推出，不用多考虑
+                }
+            }
+        }
+        return dp[m][n];
+            
+    }
+};
