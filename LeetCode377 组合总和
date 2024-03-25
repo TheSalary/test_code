@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int combinationSum4(vector<int>& nums, int target) {
+        int dp[1005]={0};
+        dp[0]=1;
+        for(int i = 0;i <= target;++i){
+            for(int j = 0;j<nums.size();++j){//组合数是（1，2，1）（1,1,2）认为是不同的方案，这里先遍历背包容量，在遍历物品，每个物品都可以在每个背包容量下使用，才能作出组合数
+                if(i>=nums[j] && dp[i]<INT_MAX - dp[i - nums[j]])
+                dp[i] += dp[i-nums[j]];
+            }
+        }
+        return dp[target];
+    }
+};
