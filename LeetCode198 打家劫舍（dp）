@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(nums.size()==1) return nums[0];
+        vector<int> dp(nums.size()+1,0);
+        dp[0]=nums[0];
+        dp[1]=max(nums[1],nums[0]);
+        for(int i = 2;i<nums.size();++i){
+            dp[i] = max(dp[i-2] + nums[i],dp[i-1]);//记住dp数组代表的含义，没必要考虑其他部分，这里dp[i-2],dp[i-1]都已经是最优解，只需要考虑dp[i]本身怎么来的就可以
+        }
+        return dp[nums.size()-1];
+    }
+};
